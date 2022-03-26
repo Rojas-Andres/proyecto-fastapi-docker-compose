@@ -18,3 +18,5 @@ Ejecutar app (entrar a la carpeta app ):
 Tener en cuenta que si se ejecuta cualquiera api de PlaceHolder Api esta eliminara todos los registros de la tabla para volverlos a cargar
 y a su vez si tienen referencia en otras tabla ese id , se eliminara ya que esta en cascade.
 
+Funcion create_todo 
+    se penso consumir la api pero ese proceso tardaba mucho por eso se llamo a la funcion y el tiempo disminuia
