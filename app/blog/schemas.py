@@ -52,3 +52,12 @@ class PostValidate(BaseModel):
     userId:int
     title:str
     body:str 
+
+class ShowCommentByPost(BaseModel):
+    postId:int
+    id:int
+    name:str
+    email:str
+    body:str
+    class Config():
+        orm_mode = True
