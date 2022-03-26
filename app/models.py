@@ -52,6 +52,17 @@ class Post(Base):
     body = Column(String)
     userId = Column(Integer,ForeignKey('users.id'))
     creator_post = relationship('User',back_populates='post')
+    comment = relationship('Comment',back_populates='creator_comment')
+
+class Comment(Base):
+    __tablename__ = 'comment'
+    id = Column(Integer,primary_key=True,index=True)
+    name = Column(String)
+    email = Column(String)
+    body = Column(String)
+    postId = Column(Integer,ForeignKey('post.id'))
+    creator_comment = relationship('Post',back_populates='comment')
+
 # class Ppr(Base):
 #     __tablename__ = 'ppr'
 #     id = Column(Integer,primary_key=True,index=True)

@@ -8,7 +8,7 @@ from blog.repository.jsonPlaceHolder import *
 
 router = APIRouter(
     prefix='/jsonPlaceHolder',
-    tags=['PlaceHolder']
+    tags=['PlaceHolder Api']
 )
 
 @router.post('/crea_users')
@@ -22,6 +22,7 @@ def create_users(db:Session=Depends(get_db)):
     for user in r.json():
         create_user(user,db)
     return {"respuesta":"Usuarios creados satisfactoriamente!"}
+
 @router.post('/crea_todos')
 def create_todos(db:Session=Depends(get_db)):
     ''' 
@@ -68,6 +69,19 @@ def create_posts(db:Session=Depends(get_db)):
     for post in r.json():
         create_post(post,db)
     return {"respuesta":"Post creados satisfactoriamente!"}
+
+@router.post('/crea_comentarios')
+def create_comments(db:Session=Depends(get_db)):
+    ''' 
+        Esta funcion se encarga de realizar la peticion a la api https://jsonplaceholder.typicode.com/comments
+        y llenar la tabla de postgres comments
+    ''' 
+    r = requests.get('https://jsonplaceholder.typicode.com/comments')
+    delete_all_comments(db)
+    for comment in r.json():
+        create_comment(comment,db)
+    return {"respuesta":"Comments creados satisfactoriamente!"}
+
 # @router.get('/{id}',status_code=200 , response_model=ShowUser)
 # def show(id:int, response:Response, db:Session=Depends(get_db)):
 #     return user.show_user(id,response,db)

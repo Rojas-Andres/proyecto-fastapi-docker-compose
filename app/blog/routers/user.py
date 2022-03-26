@@ -10,10 +10,10 @@ router = APIRouter(
     tags=['Users']
 )
 
-@router.post('/usersApi',response_model=ShowUserCreate)
-def create_users(request:UserValidate,db:Session=Depends(get_db)):
-    return user.create_user(request,db)
+# @router.post('/usersApi',response_model=ShowUserCreate)
+# def create_users(request:UserValidate,db:Session=Depends(get_db)):
+#     return user.create_user(request,db)
 
-@router.get('/{id}',status_code=200 , response_model=ShowUser)
+@router.get('/{id}',status_code=200 )
 def show(id:int, response:Response, db:Session=Depends(get_db)):
     return user.show_user(id,response,db)

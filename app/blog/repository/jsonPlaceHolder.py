@@ -43,6 +43,7 @@ def create_album(album,db:Session):
     db.add(new_album)
     db.commit()
     db.refresh(new_album)
+
 def delete_all_albums(db:Session):
     ''' 
         Esta funcion elimina todos los registros de la tabla albums
@@ -80,4 +81,20 @@ def delete_all_post(db:Session):
         Esta funcion elimina todos los registros de la tabla post
     ''' 
     db.query(Post).delete()
+    db.commit()
+
+def create_comment(comment,db:Session):
+    ''' 
+        Esta funcion crea el registro en la tabla post
+    '''
+    new_comment = Comment(id=comment["id"],name=comment["name"],email=comment["email"],postId=comment["postId"],body=comment["body"])
+    db.add(new_comment)
+    db.commit()
+    db.refresh(new_comment)
+
+def delete_all_comments(db:Session):
+    ''' 
+        Esta funcion elimina todos los registros de la tabla comment
+    ''' 
+    db.query(Comment).delete()
     db.commit()
