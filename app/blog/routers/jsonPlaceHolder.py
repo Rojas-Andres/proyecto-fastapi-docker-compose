@@ -10,7 +10,20 @@ router = APIRouter(
     prefix='/jsonPlaceHolder',
     tags=['PlaceHolder Api']
 )
-
+@router.post('/crear_todo')
+def create_all():
+    ''' 
+        Esta funcion crea todo
+    ''' 
+    url = "http://localhost:8000"
+    # url_ =f'{url}/jsonPlaceHolder/crea_users' 
+    requests.post(f'{url}/jsonPlaceHolder/crea_users')
+    requests.post(f'{url}/jsonPlaceHolder/crea_todos')
+    requests.post(f'{url}/jsonPlaceHolder/crea_albums')
+    requests.post(f'{url}/jsonPlaceHolder/crea_fotos')
+    requests.post(f'{url}/jsonPlaceHolder/crea_post')
+    requests.post(f'{url}/jsonPlaceHolder/crea_comentarios')
+    return {"respuesta":"Todo creado con exito!"}
 @router.post('/crea_users')
 def create_users(db:Session=Depends(get_db)):
     ''' 
@@ -21,6 +34,7 @@ def create_users(db:Session=Depends(get_db)):
     delete_all_users(db)
     for user in r.json():
         create_user(user,db)
+    db.execute(""" SELECT SETVAL('public."users_id_seq"', COALESCE(MAX(id), 1)) FROM users""") 
     return {"respuesta":"Usuarios creados satisfactoriamente!"}
 
 @router.post('/crea_todos')
@@ -33,7 +47,9 @@ def create_todos(db:Session=Depends(get_db)):
     delete_all_todos(db)
     for todo in r.json():
         create_todo(todo,db)
+    db.execute(""" SELECT SETVAL('public."todos_id_seq"', COALESCE(MAX(id), 1)) FROM todos""") 
     return {"respuesta":"Todos creados satisfactoriamente!"}
+
 @router.post('/crea_albums')
 def create_albums(db:Session=Depends(get_db)):
     ''' 
@@ -44,6 +60,7 @@ def create_albums(db:Session=Depends(get_db)):
     delete_all_albums(db)
     for album in r.json():
         create_album(album,db)
+    db.execute(""" SELECT SETVAL('public."album_id_seq"', COALESCE(MAX(id), 1)) FROM album""") 
     return {"respuesta":"Albumns creados satisfactoriamente!"}
 
 @router.post('/crea_fotos')
@@ -56,6 +73,7 @@ def create_fotos(db:Session=Depends(get_db)):
     delete_all_photos(db)
     for photo in r.json():
         create_photos(photo,db)
+    db.execute(""" SELECT SETVAL('public."photo_id_seq"', COALESCE(MAX(id), 1)) FROM photo""") 
     return {"respuesta":"Photos creados satisfactoriamente!"}
 
 @router.post('/crea_post')
@@ -68,6 +86,7 @@ def create_posts(db:Session=Depends(get_db)):
     delete_all_post(db)
     for post in r.json():
         create_post(post,db)
+    db.execute(""" SELECT SETVAL('public."post_id_seq"', COALESCE(MAX(id), 1)) FROM post""") # Actualiza la secuencia autoincrementable
     return {"respuesta":"Post creados satisfactoriamente!"}
 
 @router.post('/crea_comentarios')
@@ -80,8 +99,13 @@ def create_comments(db:Session=Depends(get_db)):
     delete_all_comments(db)
     for comment in r.json():
         create_comment(comment,db)
+    # SELECT SETVAL('public."post_id_seq"', COALESCE(MAX(id), 1)) FROM public.post;
+    db.execute(""" SELECT SETVAL('public."comment_id_seq"', COALESCE(MAX(id), 1)) FROM comment""")
     return {"respuesta":"Comments creados satisfactoriamente!"}
-
-# @router.get('/{id}',status_code=200 , response_model=ShowUser)
-# def show(id:int, response:Response, db:Session=Depends(get_db)):
-#     return user.show_user(id,response,db)
+@router.delete('/elimina_todo')
+def delete_all(db:Session=Depends(get_db)):
+    ''' 
+        Elimina todo lo que hay en las tablas solo elimina en usuarios pero como esta en cascade elimina todo lo demas
+    ''' 
+    delete_all_users(db)
+    return {"respuesta":"Todo eliminado con exito!"}

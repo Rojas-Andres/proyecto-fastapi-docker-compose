@@ -32,12 +32,14 @@ class ShowUser(BaseModel):
     company:Company
     class Config():
         orm_mode = True
+
 class ShowAlbum(BaseModel):
     userId:int
     id:int 
     title:str 
     class Config():
         orm_mode = True
+
 class ShowPost(BaseModel):
     userId:int
     id:int 
@@ -45,3 +47,8 @@ class ShowPost(BaseModel):
     body:str 
     class Config():
         orm_mode = True
+
+class PostValidate(BaseModel):
+    userId:int
+    title:str
+    body:str 

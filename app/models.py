@@ -8,7 +8,7 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
-    id = Column(Integer,primary_key=True,index=True)
+    id = Column(Integer,primary_key=True,autoincrement=True)
     name = Column(String)
     username = Column(String)
     email = Column(String)
@@ -22,7 +22,7 @@ class User(Base):
 
 class Todo(Base):
     __tablename__ = 'todos'
-    id = Column(Integer,primary_key=True,index=True)
+    id = Column(Integer,primary_key=True,autoincrement=True)
     title = Column(String)
     completed = Column(Boolean)
     userId = Column(Integer,ForeignKey('users.id',ondelete="CASCADE"))
@@ -30,7 +30,7 @@ class Todo(Base):
 
 class Album(Base):
     __tablename__ = 'album'
-    id = Column(Integer,primary_key=True,index=True)
+    id = Column(Integer,primary_key=True,autoincrement=True)
     title = Column(String)
     userId = Column(Integer,ForeignKey('users.id',ondelete="CASCADE"))
     creator_album = relationship('User',back_populates='album')
@@ -38,7 +38,7 @@ class Album(Base):
 
 class Photo(Base):
     __tablename__ = 'photo'
-    id = Column(Integer,primary_key=True,index=True)
+    id = Column(Integer,primary_key=True,autoincrement=True)
     title = Column(String)
     url = Column(String)
     thumbnailUrl = Column(String)
@@ -47,7 +47,7 @@ class Photo(Base):
 
 class Post(Base):
     __tablename__ = 'post'
-    id = Column(Integer,primary_key=True,index=True)
+    id = Column(Integer,primary_key=True,autoincrement=True)
     title = Column(String)
     body = Column(String)
     userId = Column(Integer,ForeignKey('users.id',ondelete="CASCADE"))
@@ -56,7 +56,7 @@ class Post(Base):
 
 class Comment(Base):
     __tablename__ = 'comment'
-    id = Column(Integer,primary_key=True,index=True)
+    id = Column(Integer,primary_key=True,autoincrement=True)
     name = Column(String)
     email = Column(String)
     body = Column(String)
