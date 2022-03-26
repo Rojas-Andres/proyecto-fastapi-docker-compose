@@ -54,14 +54,30 @@ def create_photos(photo,db:Session):
     ''' 
         Esta funcion crea el registro en la tabla photo
     '''
-    new_photo = Photo(id = photo["id"],title=photo["title"],url=photo["url"],albumId=photo["albumId"])
+    new_photo = Photo(id = photo["id"],title=photo["title"],url=photo["url"],albumId=photo["albumId"],thumbnailUrl=photo["thumbnailUrl"])
     db.add(new_photo)
     db.commit()
-    db.refresh(new_todo)
+    db.refresh(new_photo)
 
 def delete_all_photos(db:Session):
     ''' 
         Esta funcion elimina todos los registros de la tabla photos
     ''' 
     db.query(Photo).delete()
+    db.commit()
+
+def create_post(post,db:Session):
+    ''' 
+        Esta funcion crea el registro en la tabla post
+    '''
+    new_post = Post(id = post["id"],title=post["title"],body=post["body"],userId=post["userId"])
+    db.add(new_post)
+    db.commit()
+    db.refresh(new_post)
+
+def delete_all_post(db:Session):
+    ''' 
+        Esta funcion elimina todos los registros de la tabla post
+    ''' 
+    db.query(Post).delete()
     db.commit()

@@ -18,6 +18,8 @@ class User(Base):
     company = Column(JSONB)
     todos = relationship('Todo',back_populates='creator')
     album = relationship('Album',back_populates='creator_album')
+    post = relationship('Post',back_populates='creator_post')
+
 class Todo(Base):
     __tablename__ = 'todos'
     id = Column(Integer,primary_key=True,index=True)
@@ -25,6 +27,7 @@ class Todo(Base):
     completed = Column(Boolean)
     userId = Column(Integer,ForeignKey('users.id'))
     creator = relationship('User',back_populates='todos')
+
 class Album(Base):
     __tablename__ = 'album'
     id = Column(Integer,primary_key=True,index=True)
@@ -32,14 +35,23 @@ class Album(Base):
     userId = Column(Integer,ForeignKey('users.id'))
     creator_album = relationship('User',back_populates='album')
     photo = relationship('Photo',back_populates='creator_photo')
+
 class Photo(Base):
     __tablename__ = 'photo'
     id = Column(Integer,primary_key=True,index=True)
     title = Column(String)
-    completed = Column(Boolean)
+    url = Column(String)
+    thumbnailUrl = Column(String)
     albumId = Column(Integer,ForeignKey('album.id'))
     creator_photo = relationship('Album',back_populates='photo')
 
+class Post(Base):
+    __tablename__ = 'post'
+    id = Column(Integer,primary_key=True,index=True)
+    title = Column(String)
+    body = Column(String)
+    userId = Column(Integer,ForeignKey('users.id'))
+    creator_post = relationship('User',back_populates='post')
 # class Ppr(Base):
 #     __tablename__ = 'ppr'
 #     id = Column(Integer,primary_key=True,index=True)

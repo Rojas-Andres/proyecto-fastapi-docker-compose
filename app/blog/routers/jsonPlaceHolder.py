@@ -55,7 +55,19 @@ def create_fotos(db:Session=Depends(get_db)):
     delete_all_photos(db)
     for photo in r.json():
         create_photos(photo,db)
-    return {"respuesta":"Todos creados satisfactoriamente!"}
+    return {"respuesta":"Photos creados satisfactoriamente!"}
+
+@router.post('/crea_post')
+def create_posts(db:Session=Depends(get_db)):
+    ''' 
+        Esta funcion se encarga de realizar la peticion a la api https://jsonplaceholder.typicode.com/posts
+        y llenar la tabla de postgres post
+    ''' 
+    r = requests.get('https://jsonplaceholder.typicode.com/posts')
+    delete_all_post(db)
+    for post in r.json():
+        create_post(post,db)
+    return {"respuesta":"Post creados satisfactoriamente!"}
 # @router.get('/{id}',status_code=200 , response_model=ShowUser)
 # def show(id:int, response:Response, db:Session=Depends(get_db)):
 #     return user.show_user(id,response,db)
