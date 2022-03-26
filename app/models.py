@@ -25,14 +25,14 @@ class Todo(Base):
     id = Column(Integer,primary_key=True,index=True)
     title = Column(String)
     completed = Column(Boolean)
-    userId = Column(Integer,ForeignKey('users.id'))
+    userId = Column(Integer,ForeignKey('users.id',ondelete="CASCADE"))
     creator = relationship('User',back_populates='todos')
 
 class Album(Base):
     __tablename__ = 'album'
     id = Column(Integer,primary_key=True,index=True)
     title = Column(String)
-    userId = Column(Integer,ForeignKey('users.id'))
+    userId = Column(Integer,ForeignKey('users.id',ondelete="CASCADE"))
     creator_album = relationship('User',back_populates='album')
     photo = relationship('Photo',back_populates='creator_photo')
 
@@ -42,7 +42,7 @@ class Photo(Base):
     title = Column(String)
     url = Column(String)
     thumbnailUrl = Column(String)
-    albumId = Column(Integer,ForeignKey('album.id'))
+    albumId = Column(Integer,ForeignKey('album.id',ondelete="CASCADE"))
     creator_photo = relationship('Album',back_populates='photo')
 
 class Post(Base):
@@ -50,7 +50,7 @@ class Post(Base):
     id = Column(Integer,primary_key=True,index=True)
     title = Column(String)
     body = Column(String)
-    userId = Column(Integer,ForeignKey('users.id'))
+    userId = Column(Integer,ForeignKey('users.id',ondelete="CASCADE"))
     creator_post = relationship('User',back_populates='post')
     comment = relationship('Comment',back_populates='creator_comment')
 
@@ -60,7 +60,7 @@ class Comment(Base):
     name = Column(String)
     email = Column(String)
     body = Column(String)
-    postId = Column(Integer,ForeignKey('post.id'))
+    postId = Column(Integer,ForeignKey('post.id',ondelete="CASCADE"))
     creator_comment = relationship('Post',back_populates='comment')
 
 # class Ppr(Base):

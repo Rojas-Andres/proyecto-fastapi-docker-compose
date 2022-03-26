@@ -32,7 +32,9 @@ def create_todos(db:Session=Depends(get_db)):
     r = requests.get('https://jsonplaceholder.typicode.com/todos')
     delete_all_todos(db)
     for todo in r.json():
-        create_todo(todo,db)
+        v = create_todo(todo,db)
+        if v is not True:
+            return {"respuesta": f"El usuario {todo['userId']} no existe"}
     return {"respuesta":"Todos creados satisfactoriamente!"}
 @router.post('/crea_albums')
 def create_albums(db:Session=Depends(get_db)):

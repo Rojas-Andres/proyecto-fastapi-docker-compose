@@ -1,6 +1,9 @@
 from sqlalchemy.orm import Session 
 from models import *
 from fastapi import HTTPException,status
+import requests
+
+url_request = 'http://localhost:8000/'
 
 def create_user(user,db:Session):
     ''' 
@@ -24,10 +27,16 @@ def create_todo(todo,db:Session):
     ''' 
 
     ### Validar que el usuario este creado y si no devolver que se debe de crear el usuario con el id tal -> 
-    new_todo = Todo(id = todo["id"],title=todo["title"],completed=todo["completed"],userId=todo["userId"])
-    db.add(new_todo)
-    db.commit()
-    db.refresh(new_todo)
+    url_ = f"{url_request}user/{todo['userId']}"
+    r = requests.get(url_)
+    if r.status_code==200:            
+        new_todo = Todo(id = todo["id"],title=todo["title"],completed=todo["completed"],userId=todo["userId"])
+        db.add(new_todo)
+        db.commit()
+        db.refresh(new_todo)
+        return True 
+    else:
+        return False 
 def delete_all_todos(db:Session):
     ''' 
         Esta funcion elimina todos los registros de la tabla todos
@@ -71,6 +80,10 @@ def create_post(post,db:Session):
     ''' 
         Esta funcion crea el registro en la tabla post
     '''
+
+    url_ = f"{url_request}/user/{todo['userId']}"
+    r = requests.get(url)
+    print(r)
     new_post = Post(id = post["id"],title=post["title"],body=post["body"],userId=post["userId"])
     db.add(new_post)
     db.commit()

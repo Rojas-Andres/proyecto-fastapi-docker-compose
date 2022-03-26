@@ -14,3 +14,7 @@ la carpeta routers se encarga de las rutas de la api
     pip install -r requirments.txt
 Ejecutar app (entrar a la carpeta app ):
     uvicorn main:app --reload
+
+Tener en cuenta que si se ejecuta cualquiera api de PlaceHolder Api esta eliminara todos los registros de la tabla para volverlos a cargar
+y a su vez si tienen referencia en otras tabla ese id , se eliminara ya que esta en cascade.
+
