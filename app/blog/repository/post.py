@@ -42,3 +42,21 @@ def delete_post(id:int,db:Session):
     post.delete(synchronize_session=False)
     db.commit()
     return {'Respuesta':f"{id} eliminado con exito!"} 
+
+def update_post(id:int,request,db:Session):
+    post = db.query(Post).filter(Post.id == id)
+    if not post.first(): 
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f'No existe el post con el id {id} por lo tanto no se actualizo')
+    show_user(request.userId,db)
+    post.update({'userId':request.userId,'title':request.title,'body':request.body})
+    db.commit()
+    return {"respuesta":'Actualizado'}
+def update_post_patch(id:int,request,db:Session):
+    post = db.query(Post).filter(Post.id == id)
+    if not post.first(): 
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f'No existe el post con el id {id} por lo tanto no se actualizo')
+    if request.userId is not None:
+        show_user(request.userId,db)
+    post.update(request.dict(exclude_unset=True))
+    db.commit()
+    return {"respuesta":'Actualizado'}

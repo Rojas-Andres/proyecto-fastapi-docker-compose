@@ -29,3 +29,12 @@ def create_post(request:PostValidate,db:Session=Depends(get_db)):
 @router.delete('/{id}')
 def destroy(id,db:Session=Depends(get_db)):
     return post.delete_post(id,db)
+
+@router.put('/{id}',status_code=status.HTTP_202_ACCEPTED)
+def update(id,request:PostValidate ,db:Session=Depends(get_db)):
+    return post.update_post(id,request,db)
+
+@router.patch('/{id}',status_code=status.HTTP_202_ACCEPTED)
+def update(id,request:PostValidatePatch ,db:Session=Depends(get_db)):
+    return post.update_post_patch(id,request,db)
+    # print("h",request.dict(exclude_unset=True))

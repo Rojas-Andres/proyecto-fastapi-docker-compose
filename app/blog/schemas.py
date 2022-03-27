@@ -53,6 +53,11 @@ class PostValidate(BaseModel):
     title:str
     body:str 
 
+class PostValidatePatch(BaseModel):
+    userId:Optional[int] 
+    title:Optional[str] 
+    body:Optional[str]
+ 
 class ShowCommentByPost(BaseModel):
     postId:int
     id:int
