@@ -13,9 +13,9 @@ router = APIRouter(
     tags=['Posts']
 )
 
-
 @router.get('/{id}',response_model=ShowPost )
 def show(id:int, response:Response, db:Session=Depends(get_db)):
+    print("este es el post ",dir(db))
     return post.show_post(id,db)
 
 @router.get('/{id}/comments',response_model=List[ShowCommentByPost] )

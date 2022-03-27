@@ -17,7 +17,7 @@ def create_post(request,db:Session):
     ''' 
         Esta funcion crea un post 
     ''' 
-    show_user(request.userId,db)
+    # print("este es el request ",request,type(dir(request)))
     new_post = Post(title=request.title,body=request.body,userId=request.userId)
     db.add(new_post)
     db.commit()
@@ -44,6 +44,9 @@ def delete_post(id:int,db:Session):
     return {'Respuesta':f"{id} eliminado con exito!"} 
 
 def update_post(id:int,request,db:Session):
+    ''' 
+        Actualiza un post completo
+    ''' 
     post = db.query(Post).filter(Post.id == id)
     if not post.first(): 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f'No existe el post con el id {id} por lo tanto no se actualizo')
@@ -52,6 +55,9 @@ def update_post(id:int,request,db:Session):
     db.commit()
     return {"respuesta":'Actualizado'}
 def update_post_patch(id:int,request,db:Session):
+    ''' 
+        Actualiza el post dependiendo de lo que le envie desde el json
+    ''' 
     post = db.query(Post).filter(Post.id == id)
     if not post.first(): 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f'No existe el post con el id {id} por lo tanto no se actualizo')
