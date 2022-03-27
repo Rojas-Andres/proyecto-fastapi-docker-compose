@@ -7,8 +7,9 @@ import requests
 from blog.repository import post
 from blog.schemas import *
 from typing import List
+
 router = APIRouter(
-    prefix='/post',
+    prefix='/posts',
     tags=['Posts']
 )
 
