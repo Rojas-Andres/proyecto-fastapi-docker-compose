@@ -53,3 +53,10 @@ graphql
         }
 
 resolve_ -> al inicio de una query es importante porque es lo que va a devolver
+
+## Ejecutar test 
+    estar en la carpeta app y ejecutar
+    - pytest test_api.py
+    - pytest test_graphql.py
+
+    Tener en cuenta que cuando se ejecuta el test test_graphql.py al menos las tablas de las base de datos deben de estar llenas

@@ -42,13 +42,13 @@ def test_comentarios(client:TestClient):
     response = client.post('/jsonPlaceHolder/crea_comentarios')
     assert response.json()["respuesta"]=='Comments creados satisfactoriamente!'
 
-# def test_elimina_todo(client:TestClient):
-#     response =  client.delete('/jsonPlaceHolder/elimina_todo')
-#     assert response.json()["respuesta"] == 'Todo eliminado con exito!'
+def test_elimina_todo(client:TestClient):
+    response =  client.delete('/jsonPlaceHolder/elimina_todo')
+    assert response.json()["respuesta"] == 'Todo eliminado con exito!'
 
-# def test_crea_todo(client:TestClient):
-#     response =  client.post('/jsonPlaceHolder/crear_todo')
-#     assert response.json()["respuesta"] =='Todo creado con exito!'
+def test_crea_todo(client:TestClient):
+    response =  client.post('/jsonPlaceHolder/crear_todo')
+    assert response.json()["respuesta"] =='Todo creado con exito!'
 
 def test_user_id(client:TestClient):
     response = client.get('/user/1')
@@ -84,3 +84,31 @@ def test_post_delete(client:TestClient):
     assert response.json()["Respuesta"] == '100 eliminado con exito!'
     response = client.get('/posts/100')
     assert response.json()["detail"] == 'No existe el post con el id 100 por favor vuelva a crear los post'
+
+def test_post_patch(client:TestClient):
+    data = {
+        "body": "Este es el nuevo body del id 2"
+    }
+    response = client.patch('/posts/2',json=data)
+    assert response.json()["respuesta"] == "Actualizado"
+    response = client.get('/posts/2')
+    assert response.json()["userId"] == 1
+    assert response.json()["title"] == 'qui est esse'
+    assert response.json()["body"] == 'Este es el nuevo body del id 2'
+
+def test_post_comments(client:TestClient):
+    response = client.get('/posts/1/comments')
+    assert len(response.json()) == 5
+
+def test_create_post(client:TestClient):
+    data = {
+        "userId": 2,
+        "title": "hola desde el title",
+        "body": "hola desde el body"
+    }
+    response = client.post('/posts/',json=data)
+    assert response.json()["id"] == 101
+
+def test_comments_post(client:TestClient):
+    response = client.get('/comments/?postId=3')
+    assert len(response.json())==5
