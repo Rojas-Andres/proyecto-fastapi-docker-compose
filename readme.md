@@ -44,6 +44,12 @@ graphql
                 title
             }
         }
-
+    query trae todos los albums:           
+        query{
+            allAlbums{
+                title
+                id
+            }
+        }
 
 resolve_ -> al inicio de una query es importante porque es lo que va a devolver

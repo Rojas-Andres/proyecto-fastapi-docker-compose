@@ -12,13 +12,19 @@ class Query(graphene.ObjectType):
 
     post_by_id = graphene.Field(PostModel, post_id=graphene.Int(required=True))
 
+    all_albums = graphene.List(AlbumModel)
+    
     def resolve_all_posts(self, info):
         query = PostModel.get_query(info)
         return query.all()
 
+    def resolve_all_albums(self,info):
+        query = AlbumModel.get_query(info)
+        return query.all()
+    
     def resolve_post_by_id(self, info, post_id):
-        return db.query(Post).filter(models.Post.id == post_id).first()
-
+        db = SessionLocal()
+        return db.query(Post).filter(Post.id == post_id).first()
 
 class CreateNewPost(graphene.Mutation):
     class Arguments:
