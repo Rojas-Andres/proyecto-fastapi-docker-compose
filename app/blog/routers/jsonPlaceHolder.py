@@ -1,7 +1,7 @@
 from fastapi import APIRouter,Depends,Response,HTTPException,status
 from blog.schemas import *
 from models import *
-from blog.database import get_db
+from blog.database import get_db,SessionLocal
 from sqlalchemy.orm import Session
 import requests
 from blog.repository.jsonPlaceHolder import *
@@ -15,14 +15,20 @@ def create_all():
     ''' 
         Esta funcion crea todo
     ''' 
-    url = "http://localhost:8000"
-    # url_ =f'{url}/jsonPlaceHolder/crea_users' 
-    requests.post(f'{url}/jsonPlaceHolder/crea_users')
-    requests.post(f'{url}/jsonPlaceHolder/crea_todos')
-    requests.post(f'{url}/jsonPlaceHolder/crea_albums')
-    requests.post(f'{url}/jsonPlaceHolder/crea_fotos')
-    requests.post(f'{url}/jsonPlaceHolder/crea_post')
-    requests.post(f'{url}/jsonPlaceHolder/crea_comentarios')
+    # url = "http://localhost:8000"
+    # # url_ =f'{url}/jsonPlaceHolder/crea_users' 
+    # requests.post(f'{url}/jsonPlaceHolder/crea_users')
+    # requests.post(f'{url}/jsonPlaceHolder/crea_todos')
+    # requests.post(f'{url}/jsonPlaceHolder/crea_albums')
+    # requests.post(f'{url}/jsonPlaceHolder/crea_fotos')
+    # requests.post(f'{url}/jsonPlaceHolder/crea_post')
+    # requests.post(f'{url}/jsonPlaceHolder/crea_comentarios')
+    create_users(SessionLocal())
+    create_todos(SessionLocal())
+    create_albums(SessionLocal())
+    create_fotos(SessionLocal())
+    create_posts(SessionLocal())
+    create_comments(SessionLocal())
     return {"respuesta":"Todo creado con exito!"}
 @router.post('/crea_users')
 def create_users(db:Session=Depends(get_db)):
