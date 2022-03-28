@@ -58,5 +58,19 @@ resolve_ -> al inicio de una query es importante porque es lo que va a devolver
     estar en la carpeta app y ejecutar
     - pytest test_api.py
     - pytest test_graphql.py
-
+    o
+    pytest
     Tener en cuenta que cuando se ejecuta el test test_graphql.py al menos las tablas de las base de datos deben de estar llenas
+
+## Eliminar todas las imágenes de docker
+    docker rmi $(docker images -q)
+
+## Eliminar todos los contenedores de docker
+    docker rm $(docker ps -a -q)
+
+## Correr docker-compose
+    - docker-compose up --build
+
+    Luego ejecutar solo por primera vez para que realice las migraciones 
+        docker-compose run app-fastapi alembic revision --autogenerate -m "Nueva integracion"
+        docker-compose run app-fastapi alembic upgrade heads

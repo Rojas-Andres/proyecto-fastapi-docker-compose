@@ -3,6 +3,10 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import declarative_base,sessionmaker
 from sqlalchemy import Column,String,create_engine
+import sys 
+import os 
+# sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
+#YO ESTOY AFUERA DE APP estoy en la raiz ... debo de ingresar a app para coger el blog
 from blog.database import Base
 # Base = declarative_base()
 
