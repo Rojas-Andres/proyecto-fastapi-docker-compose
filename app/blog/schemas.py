@@ -1,8 +1,8 @@
 from typing import Optional , List
 from pydantic import BaseModel
-from models import Post
+from models import Post,User
 from graphene_sqlalchemy import SQLAlchemyObjectType
-
+from graphene import relay
 class UserValidate(BaseModel):
     name:str
     email:str
@@ -72,3 +72,5 @@ class ShowCommentByPost(BaseModel):
 class PostModel(SQLAlchemyObjectType):
     class Meta:
         model = Post
+        # interfaces = (User, )
+

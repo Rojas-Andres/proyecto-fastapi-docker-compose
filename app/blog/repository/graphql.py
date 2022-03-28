@@ -1,16 +1,22 @@
 from starlette.graphql import GraphQLApp
-from blog.schemas import *
+# from blog.schemas import *
+from blog.schemas_graphql import *
 import graphene
 from blog.database import get_db,SessionLocal
 from sqlalchemy.orm import Session
 from blog.repository import post
+from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 
 class Query(graphene.ObjectType):
-
+    node = relay.Node.Field()
     all_posts = graphene.List(PostModel)
+    # all_posts = SQLAlchemyConnectionField(PostModel.connection)
+    # all_users = SQLAlchemyConnectionField(UserModel.connection, sort=None)
+
     post_by_id = graphene.Field(PostModel, post_id=graphene.Int(required=True))
 
     def resolve_all_posts(self, info):
+        # print(dir(PostModel))
         query = PostModel.get_query(info)
         return query.all()
 

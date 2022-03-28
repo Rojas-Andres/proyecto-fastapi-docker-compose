@@ -20,3 +20,24 @@ y a su vez si tienen referencia en otras tabla ese id , se eliminara ya que esta
 
 Funcion create_todo 
     se penso consumir la api pero ese proceso tardaba mucho por eso se llamo a la funcion y el tiempo disminuia
+
+
+graphql
+    http://localhost:8000/graphql
+    
+    mutacion crear post ejemplo :
+        mutation CreateNewPost{
+            createNewPost(title:"Este es un nuevo post", body:"nuevo post",userId:1) {
+                ok
+            }
+        }
+    
+    query todos los post ejemplo:
+        query{
+            allPosts{
+                title
+            }
+        }
+
+
+resolve_ -> al inicio de una query es importante porque es lo que va a devolver

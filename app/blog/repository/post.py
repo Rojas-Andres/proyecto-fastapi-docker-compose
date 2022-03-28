@@ -23,6 +23,7 @@ def create_post(request,db:Session):
     db.commit()
     db.refresh(new_post)
     return new_post
+
 def show_comment_by_post(id:int,db:Session):
     ''' 
         Esta funcion devuelve todos los comentarios de un post

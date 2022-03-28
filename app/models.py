@@ -3,8 +3,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import declarative_base,sessionmaker
 from sqlalchemy import Column,String,create_engine
-
-Base = declarative_base()
+from blog.database import Base
+# Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
@@ -62,21 +62,3 @@ class Comment(Base):
     body = Column(String)
     postId = Column(Integer,ForeignKey('post.id',ondelete="CASCADE"))
     creator_comment = relationship('Post',back_populates='comment')
-
-# class Ppr(Base):
-#     __tablename__ = 'ppr'
-#     id = Column(Integer,primary_key=True,index=True)
-#     name = Column(String)
-# pprs = [
-#     Ppr(name="ada "),
-#     Ppr(name="adas "),
-    
-# ]
-# # session_maker = sessionmaker(bind=create_engine('postgresql://postgres:postgres@localhost:5435/fastapi'))
-
-# # def crear():
-# #     with session_maker() as session:
-# #         for u in pprs:
-# #             session.add(u)
-# #         session.commit()
-# # crear()

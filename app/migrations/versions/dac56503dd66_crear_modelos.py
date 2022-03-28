@@ -1,8 +1,8 @@
-"""create tablas
+"""crear modelos
 
-Revision ID: e397009db843
+Revision ID: dac56503dd66
 Revises: 
-Create Date: 2022-03-26 16:04:22.599028
+Create Date: 2022-03-27 18:03:55.721560
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = 'e397009db843'
+revision = 'dac56503dd66'
 down_revision = None
 branch_labels = None
 depends_on = None
