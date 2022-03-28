@@ -65,3 +65,22 @@ def test_post_id(client:TestClient):
     response = client.get('/posts/1')
     assert "title" in response.json()
     assert response.json()["id"] == 1
+
+def test_post_update(client:TestClient):
+    data = {
+        "userId": 6,
+        "title": "Este es el nuevo title",
+        "body": "Este es el nuevo body"
+    }
+    response = client.put('/posts/1',json=data)
+    assert response.json()["respuesta"] == 'Actualizado'
+    response = client.get('/posts/1')
+    assert response.json()["userId"] == 6
+    assert response.json()["title"] == 'Este es el nuevo title'
+    assert response.json()["body"] == 'Este es el nuevo body'
+
+def test_post_delete(client:TestClient):
+    response = client.delete('/posts/100')
+    assert response.json()["Respuesta"] == '100 eliminado con exito!'
+    response = client.get('/posts/100')
+    assert response.json()["detail"] == 'No existe el post con el id 100 por favor vuelva a crear los post'
