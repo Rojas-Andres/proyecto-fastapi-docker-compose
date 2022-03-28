@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from models import Post,User
 from graphene_sqlalchemy import SQLAlchemyObjectType
 from graphene import relay
+
 class UserValidate(BaseModel):
     name:str
     email:str
@@ -42,6 +43,10 @@ class ShowAlbum(BaseModel):
     class Config():
         orm_mode = True
 
+class AlbumValidate(BaseModel):
+    title:str
+    userId:int
+
 class ShowPost(BaseModel):
     userId:int
     id:int 
@@ -68,9 +73,4 @@ class ShowCommentByPost(BaseModel):
     body:str
     class Config():
         orm_mode = True
-
-class PostModel(SQLAlchemyObjectType):
-    class Meta:
-        model = Post
-        # interfaces = (User, )
 

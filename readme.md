@@ -32,6 +32,12 @@ graphql
             }
         }
     
+    Mutacion crear album:
+        mutation {
+            createNewAlbum(title:"Este es un nuevo post",userId:1) {
+                ok
+            }
+        }
     query todos los post ejemplo:
         query{
             allPosts{

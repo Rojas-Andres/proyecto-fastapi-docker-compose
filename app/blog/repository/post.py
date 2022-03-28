@@ -33,6 +33,7 @@ def show_comment_by_post(id:int,db:Session):
     if len(comments_by_post)==0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f'El post {id} aun no tiene comentarios') 
     return comments_by_post 
+
 def delete_post(id:int,db:Session):
     ''' 
         Esta funcion elimina un post
@@ -55,6 +56,7 @@ def update_post(id:int,request,db:Session):
     post.update({'userId':request.userId,'title':request.title,'body':request.body})
     db.commit()
     return {"respuesta":'Actualizado'}
+
 def update_post_patch(id:int,request,db:Session):
     ''' 
         Actualiza el post dependiendo de lo que le envie desde el json
