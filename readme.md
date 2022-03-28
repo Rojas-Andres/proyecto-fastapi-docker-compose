@@ -3,9 +3,9 @@
 
 
 - Iniciar con alembic 
-    alembic init migrations
+    alembic init alembic
     modificiar el alembic.ini
-    alembic revision --autogenerate -m 'create user model2'
+    alembic revision --autogenerate -m 'crear modelos'
     alembic upgrade heads
 
 La carpeta repository se encarga de las consultas
@@ -69,8 +69,23 @@ resolve_ -> al inicio de una query es importante porque es lo que va a devolver
     docker rm $(docker ps -a -q)
 
 ## Correr docker-compose
-    - docker-compose up --build
 
-    Luego ejecutar solo por primera vez para que realice las migraciones 
-        docker-compose run app-fastapi alembic revision --autogenerate -m "Nueva integracion"
-        docker-compose run app-fastapi alembic upgrade heads
+    docker-compose up --build
+
+    Cuando ya todo este corriendo entrar al contendor que corre la aplicacion de fastapi con el siguiente comando
+        docker exec -it --user root d6fd6c557b52 /bin/bash
+
+    y luego ejecutar
+
+    alembic revision --autogenerate -m 'crear modelos'
+    alembic upgrade heads
+
+    por ultimo salir del contenedor
+
+    exit
+    
+    Importante:
+        Si desea hacer cambios en los modelos antes de volver a realizar las migraciones debe de eliminar la tabla alembic de la base de datos y luego si realizar la migracion correspondiente.
+        
+
+
