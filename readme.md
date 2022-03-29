@@ -75,13 +75,14 @@ resolve_ -> al inicio de una query es importante porque es lo que va a devolver
 
     coverage run -m pytest 
     
-    ![](imagenes/test/probar_test.PNG)
+   ![](imagenes/test/probar_test.PNG)
     
     En el caso de que quiera colocar print dentro de las funciones de test ejecutar :
         coverage run -m pytest -s 
-    ![](imagenes/test/index_del_coverage.png)
+        
+   ![](imagenes/test/index_del_coverage.png)
     
-    ![](imagenes/test/porcentaje.PNG)
+   ![](imagenes/test/porcentaje.PNG)
     
     
     Si ejecuta por medio del coverage puede ejecutar tambien coverage report
