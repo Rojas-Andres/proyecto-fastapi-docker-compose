@@ -12,18 +12,27 @@ y a su vez si tienen referencia en otras tabla ese id , se eliminara ya que esta
 
     Cuando ya todo este corriendo entrar al contendor que corre la aplicacion de fastapi con el siguiente comando
         docker exec -it --user root d6fd6c557b52 /bin/bash
+   
+   ![](imagenes/migraciones/entrar_contenedor.PNG)
 
     y luego ejecutar
 
     alembic revision --autogenerate -m 'crear modelos'
     alembic upgrade heads
-
+   
+   ![](imagenes/migraciones/ejecutar.PNG)
     por ultimo salir del contenedor
 
     exit
     
+    Validar en pgadmin si se realizaron las migraciones
+   ![](imagenes/migraciones/validar_en_pgadmin.PNG)
+    
     Importante:
         Si desea hacer cambios en los modelos antes de volver a realizar las migraciones debe de eliminar la tabla alembic de la base de datos y luego si realizar la migracion correspondiente.
+        
+        
+        
 ## Conexion pgadmin 
    ![](imagenes/conexion_pgadmin/login.png)
    
