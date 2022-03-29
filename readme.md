@@ -62,7 +62,8 @@ graphql
 resolve_ -> al inicio de una query es importante porque es lo que va a devolver
 
 ## Ejecutar test 
-    para ejecutar las pruebas debe de tener una base de datos(postgres) local
+    
+    Para ejecutar las pruebas debe de tener una base de datos(postgres) local
     y comentar la linea 11 y 12 del archivo database.py y descomentar la linea 16 del mismo archivo
     estar en la carpeta app y ejecutar
     - pytest test_api.py
@@ -73,15 +74,21 @@ resolve_ -> al inicio de una query es importante porque es lo que va a devolver
     O ejecutar
 
     coverage run -m pytest 
-
+    
+    ![](imagenes/test/probar_test.PNG)
+    
     En el caso de que quiera colocar print dentro de las funciones de test ejecutar :
         coverage run -m pytest -s 
-
+    ![](imagenes/test/index_del_coverage.png)
+    
+    ![](imagenes/test/porcentaje.PNG)
+    
+    
     Si ejecuta por medio del coverage puede ejecutar tambien coverage report
     para ver que parte del codigo esta evaluando y ejecute coverage html para ver en html que partes del codigo evaluo y que partes faltan por evaluar
 
     Tener en cuenta que cuando se ejecuta el test test_graphql.py al menos las tablas de las base de datos deben de estar llenas
-
+    
 ## Eliminar todas las imágenes de docker
     docker rmi $(docker images -q)
 
