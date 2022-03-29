@@ -24,7 +24,15 @@ y a su vez si tienen referencia en otras tabla ese id , se eliminara ya que esta
     
     Importante:
         Si desea hacer cambios en los modelos antes de volver a realizar las migraciones debe de eliminar la tabla alembic de la base de datos y luego si realizar la migracion correspondiente.
-        
+## Conexion pgadmin 
+   ![](imagenes/conexion_pgadmin/login.png)
+   
+   ![](imagenes/conexion_pgadmin/conexion_server.png)
+
+   ![](imagenes/conexion_pgadmin/db_1.png)
+
+   ![](imagenes/conexion_pgadmin/db_2.png)
+
 ## Apis en graphql
 
 ![](imagenes/apis/graphql.PNG)
