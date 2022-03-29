@@ -1,17 +1,31 @@
-1. Solicitar datos a la api y guardar la informacion en la bd
-2. Creacion de apis
+#### Proyecto fastapi con docker-compose 
 
 
-
-
-
+# Consideraciones iniciales
 Tener en cuenta que si se ejecuta cualquiera api de PlaceHolder Api esta eliminara todos los registros de la tabla para volverlos a cargar
 y a su vez si tienen referencia en otras tabla ese id , se eliminara ya que esta en cascade.
 
-Funcion create_todo 
-    se penso consumir la api pero ese proceso tardaba mucho por eso se llamo a la funcion y el tiempo disminuia
 
+## Correr proyecto con docker-compose
 
+    docker-compose up --build
+
+    Cuando ya todo este corriendo entrar al contendor que corre la aplicacion de fastapi con el siguiente comando
+        docker exec -it --user root d6fd6c557b52 /bin/bash
+
+    y luego ejecutar
+
+    alembic revision --autogenerate -m 'crear modelos'
+    alembic upgrade heads
+
+    por ultimo salir del contenedor
+
+    exit
+    
+    Importante:
+        Si desea hacer cambios en los modelos antes de volver a realizar las migraciones debe de eliminar la tabla alembic de la base de datos y luego si realizar la migracion correspondiente.
+        
+## Apis en graphql
 graphql
     http://localhost:8000/graphql
     
@@ -45,11 +59,24 @@ graphql
 resolve_ -> al inicio de una query es importante porque es lo que va a devolver
 
 ## Ejecutar test 
+    para ejecutar las pruebas debe de tener una base de datos(postgres) local
+    y comentar la linea 11 y 12 del archivo database.py y descomentar la linea 16 del mismo archivo
     estar en la carpeta app y ejecutar
     - pytest test_api.py
     - pytest test_graphql.py
     o
     pytest
+
+    O ejecutar
+
+    coverage run -m pytest 
+
+    En el caso de que quiera colocar print dentro de las funciones de test ejecutar :
+        coverage run -m pytest -s 
+
+    Si ejecuta por medio del coverage puede ejecutar tambien coverage report
+    para ver que parte del codigo esta evaluando y ejecute coverage html para ver en html que partes del codigo evaluo y que partes faltan por evaluar
+
     Tener en cuenta que cuando se ejecuta el test test_graphql.py al menos las tablas de las base de datos deben de estar llenas
 
 ## Eliminar todas las imágenes de docker
@@ -57,27 +84,6 @@ resolve_ -> al inicio de una query es importante porque es lo que va a devolver
 
 ## Eliminar todos los contenedores de docker
     docker rm $(docker ps -a -q)
-
-## Correr docker-compose
-
-    docker-compose up --build
-
-    Cuando ya todo este corriendo entrar al contendor que corre la aplicacion de fastapi con el siguiente comando
-        docker exec -it --user root d6fd6c557b52 /bin/bash
-
-    y luego ejecutar
-
-    alembic revision --autogenerate -m 'crear modelos'
-    alembic upgrade heads
-
-    por ultimo salir del contenedor
-
-    exit
-    
-    Importante:
-        Si desea hacer cambios en los modelos antes de volver a realizar las migraciones debe de eliminar la tabla alembic de la base de datos y luego si realizar la migracion correspondiente.
-        
-
 
 ## Iniciar el proyecto localmente
 
@@ -118,3 +124,6 @@ El porque de las carpetas:
 ## autopep8
     - autopep8 --in-place --aggressive --aggressive <filename>
     autopep8 --in-place --aggressive --aggressive models.py
+
+### Funcion create_todo 
+    se penso consumir la api pero ese proceso tardaba mucho por eso se llamo a la funcion y el tiempo disminuia
