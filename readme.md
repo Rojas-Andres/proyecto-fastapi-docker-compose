@@ -26,6 +26,9 @@ y a su vez si tienen referencia en otras tabla ese id , se eliminara ya que esta
         Si desea hacer cambios en los modelos antes de volver a realizar las migraciones debe de eliminar la tabla alembic de la base de datos y luego si realizar la migracion correspondiente.
         
 ## Apis en graphql
+
+![](imagenes/apis/graphql.PNG)
+
 graphql
     http://localhost:8000/graphql
     
