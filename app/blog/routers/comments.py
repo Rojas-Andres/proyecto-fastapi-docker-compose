@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Depends,Response,HTTPException,status
+from fastapi import APIRouter, Depends, Response, HTTPException, status
 from blog.schemas import *
 from models import *
 from blog.database import get_db
@@ -12,6 +12,13 @@ router = APIRouter(
     tags=['Comments']
 )
 
-@router.get('/',response_model=List[ShowCommentByPost] )
-def show_comment_by_post(postId:int, response:Response, db:Session=Depends(get_db)):
-    return comments.show_comment_by_post(postId,db)
+
+@router.get('/', response_model=List[ShowCommentByPost])
+def show_comment_by_post(
+        postId: int,
+        response: Response,
+        db: Session = Depends(get_db)):
+    '''
+        Esta funcion devuelve todos los comentarios de un post
+    '''
+    return comments.show_comment_by_post(postId, db)

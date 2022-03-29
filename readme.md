@@ -2,18 +2,8 @@
 2. Creacion de apis
 
 
-- Iniciar con alembic 
-    alembic init alembic
-    modificiar el alembic.ini
-    alembic revision --autogenerate -m 'crear modelos'
-    alembic upgrade heads
 
-La carpeta repository se encarga de las consultas
-la carpeta routers se encarga de las rutas de la api
-- Instalar dependencias
-    pip install -r requirments.txt
-Ejecutar app (entrar a la carpeta app ):
-    uvicorn main:app --reload
+
 
 Tener en cuenta que si se ejecuta cualquiera api de PlaceHolder Api esta eliminara todos los registros de la tabla para volverlos a cargar
 y a su vez si tienen referencia en otras tabla ese id , se eliminara ya que esta en cascade.
@@ -89,3 +79,42 @@ resolve_ -> al inicio de una query es importante porque es lo que va a devolver
         
 
 
+## Iniciar el proyecto localmente
+
+    Primero debe de crear su entorno virtual con
+        virtualenv venv
+    Activar el entorno virtual
+        .\venv\Scripts\activate.ps1
+    Instalar las librerias correspondientes
+        pip install -r requirments.txt
+    
+    Luego debe de ejecutar las migraciones en su base de datos local para ello debe de eliminar la carpeta de alembic que esta dentro de la carpeta app y ejecutar
+    
+    alembic init alembic
+
+    Luego de ello debe de tener en cuenta el alembic.ini ya que debe de modificarlo para que agarre su base de datos local, asimismo como su env.py
+
+    modificiar el alembic.ini
+    
+    Luego ejecutar :
+        alembic revision --autogenerate -m 'crear modelos'
+        alembic upgrade heads
+    Y esto aplicara las migraciones correspondiente
+
+    Luego de ello puede ejecutar 
+        Ejecutar app (entrar a la carpeta app ):
+        uvicorn main:app --reload
+    
+
+El porque de las carpetas:   
+    La carpeta repository se encarga de las consultas
+    La carpeta routers se encarga de las rutas de la api
+
+## Apis creadas
+
+    Para ver las apis creadas solo entre al navegador a http://localhost:8000/docs
+
+
+## autopep8
+    - autopep8 --in-place --aggressive --aggressive <filename>
+    autopep8 --in-place --aggressive --aggressive models.py

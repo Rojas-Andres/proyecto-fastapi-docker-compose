@@ -81,7 +81,6 @@ def create_post(post,db:Session):
     '''
 
     show_user(post["userId"],db)
-    #validar el post
     new_post = Post(id = post["id"],title=post["title"],body=post["body"],userId=post["userId"])
     db.add(new_post)
     db.commit()

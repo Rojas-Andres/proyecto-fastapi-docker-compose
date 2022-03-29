@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Depends,Response,HTTPException,status
+from fastapi import APIRouter, Depends, Response, HTTPException, status
 from blog.schemas import *
 from models import *
 from blog.database import get_db
@@ -12,6 +12,10 @@ router = APIRouter(
     tags=['Albums']
 )
 
-@router.get('/{id}',response_model=ShowAlbum )
-def show(id:int, response:Response, db:Session=Depends(get_db)):
-    return show_album(id,db)
+
+@router.get('/{id}', response_model=ShowAlbum)
+def show(id: int, response: Response, db: Session = Depends(get_db)):
+    '''
+        Devuelve un album por el id
+    '''
+    return show_album(id, db)
